@@ -1,19 +1,22 @@
 // TradingViewWidget.jsx
 import { useEffect, useRef, memo } from 'react';
+import { convert2Studies, validateStudies } from '../utils/convert-to-studies';
 
 interface TradingviewProps {
   symbol: string;
   interval: 'W' | 'D' | '240' | '60' | '30' | '15' | '5' | '1';
-  studies?: string[];
+  studies: string[];
 }
 
 function TradingViewWidget({ symbol, interval, studies }: TradingviewProps) {
   const container = useRef<HTMLDivElement>(null);
-  console.log(studies);
-  console.log(studies?.map((study) => `"STD;${study}"`).join(", "));
 
   useEffect(
     () => {
+      const validIndicators = validateStudies(studies);
+      const indicators = convert2Studies(validIndicators);
+      console.log(indicators);
+
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
       script.type = "text/javascript";
@@ -30,7 +33,7 @@ function TradingViewWidget({ symbol, interval, studies }: TradingviewProps) {
           "allow_symbol_change": true,
           "calendar": false,
           "studies": [
-            ${studies?.map((study) => `"STD;${study}"`).join(", ")}
+            ${indicators.map((i) => `"${i}"`).join(",")}
           ],
           "support_host": "https://www.tradingview.com"
         }`;
