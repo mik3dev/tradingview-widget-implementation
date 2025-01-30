@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthorization } from "../hooks/useAuthorization";
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from "./ui/menubar"
 import { MultiChartSettings } from "./MultiChartSettings";
@@ -6,6 +6,7 @@ import { DialogTrigger } from "@radix-ui/react-dialog";
 
 export const MainMenu = () => {
   const { isAuthenticated, login, logout } = useAuthorization();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogin = () => {
@@ -14,6 +15,14 @@ export const MainMenu = () => {
 
   const handleLogout = () => {
     logout();
+  }
+
+  const clear = () => {
+    if (location.pathname === '/') {
+      navigate("/");
+    } else if (location.pathname === '/multi-charts') {
+      navigate("/multi-charts")
+    }
   }
 
   return (
@@ -53,6 +62,9 @@ export const MainMenu = () => {
           <MenubarContent>
             <MenubarItem className="cursor-pointer">
               <DialogTrigger>Settings</DialogTrigger>
+            </MenubarItem>
+            <MenubarItem className="cursor-pointer" onClick={clear}>
+              Clear
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
