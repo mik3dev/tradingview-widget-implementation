@@ -2,7 +2,7 @@ import useFinData from "../hooks/useFinData";
 import { Intervals } from "../utils/intervals";
 import { uuidv4 } from "../utils/generate-uuid";
 import { ChartConfig, TradingChart } from "../components/TradingChart";
-
+import { AssetTabs } from "../components/AssetTabs";
 
 export default function MultiChartPage() {
   const { symbol, intervals, studies } = useFinData();
@@ -24,6 +24,7 @@ export default function MultiChartPage() {
             <TradingChart config={chartConfig} />
           </div>
         ))}
+        <AssetTabs />
       </div>
     </main>
   );
