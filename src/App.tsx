@@ -2,15 +2,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SingleChartPage from "./pages/SingleChartPage";
 import MultiChartPage from "./pages/MultiChartPage";
 import Callback from "./pages/Callback";
-import { Navbar } from "./components/Navbar";
 import { useAuthorization } from "./hooks/useAuthorization";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { MainMenu } from "./components/MainMenu";
 
 function App() {
   const { isAuthenticated, isLoading } = useAuthorization();
+
   return (
     <BrowserRouter>
-      <Navbar />
+      <MainMenu />
       <Routes>
         <Route
           path="/callback"
@@ -20,9 +21,9 @@ function App() {
         />
         <Route path="/" element={<SingleChartPage />} />
         <Route
-          path="/multi-chart"
+          path="/multi-charts"
           element={
-            <ProtectedRoute 
+            <ProtectedRoute
               isAuthenticated={isAuthenticated}
               isLoading={isLoading}
             >

@@ -11,6 +11,11 @@ export const ProtectedRoute = ({
   isAuthenticated,
   isLoading = false
 }: ProtectedRouteProps) => {
+  console.log({
+    isAuthenticated,
+    isLoading
+  })
+
   // Show loading state only during initial load
   if (isLoading && isAuthenticated === null) {
     return <div className="flex items-center justify-center h-full">Loading...</div>;

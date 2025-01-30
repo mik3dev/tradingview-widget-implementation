@@ -13,7 +13,7 @@ export default function SingleChartPage() {
   };
 
   return (
-    <div id="app" className="w-screen h-screen">
+    <div id="app" className="w-100 h-[93vh]">
       <TradingChart config={chartConfig} />
     </div>
   );

@@ -17,10 +17,10 @@ export default function MultiChartPage() {
   const charts = intervals.map(createChartConfig);
 
   return (
-    <main className="w-full h-screen bg-gray-900 p-4">
+    <main className="w-100 h-[96vh] bg-gray-900 p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
         {charts.map((chartConfig) => (
-          <div key={chartConfig.id} className="flex flex-col h-[calc(50vh-1rem)] rounded-lg overflow-hidden border border-gray-700">
+          <div key={chartConfig.id} className="flex flex-col rounded-lg overflow-hidden border border-gray-700">
             <TradingChart config={chartConfig} />
           </div>
         ))}
