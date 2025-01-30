@@ -1,57 +1,13 @@
-import { useEffect, useState } from "react";
-import { UserManager, User } from "oidc-client-ts";
+import { useAuthorization } from "../hooks/useAuthorization";
 
-type Props = {
-  authenticated: boolean | null;
-  setAuth: (authenticated: boolean | null) => void;
-  userManager: UserManager;
-  handleLogout: () => void;
-};
 
-const Callback = ({
-  authenticated,
-  setAuth,
-  userManager,
-  handleLogout,
-}: Props) => {
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+const Callback = () => {
+  const { userInfo, isAuthenticated, logout } = useAuthorization();
+  const handleLogout = () => {
+    logout();
+  }
 
-  useEffect(() => {
-    if (authenticated === null) {
-      userManager
-        .signinRedirectCallback()
-        .then((user: User) => {
-          if (user) {
-            setAuth(true);
-            setUserInfo(user);
-          } else {
-            setAuth(false);
-          }
-        })
-        .catch((error: unknown) => {
-          console.log(error);
-          setAuth(false);
-        });
-    }
-    if (authenticated === true && userInfo === null) {
-      userManager
-        .getUser()
-        .then((user) => {
-          if (user) {
-            setAuth(true);
-            setUserInfo(user);
-          } else {
-            setAuth(false);
-          }
-        })
-        .catch((error: unknown) => {
-          console.log(error);
-          setAuth(false);
-        });
-    }
-  }, [authenticated, userManager, setAuth, userInfo]);
-
-  if (authenticated === true && userInfo) {
+  if (isAuthenticated === true && userInfo) {
     return (
       <div className="user">
         <h2>Welcome, {userInfo.profile.name}!</h2>
