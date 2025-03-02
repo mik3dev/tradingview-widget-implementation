@@ -6,6 +6,7 @@ import { useAuthorization } from "./hooks/useAuthorization";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { MainMenu } from "./components/MainMenu";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { OpenChartsPage } from "./pages/OpenChartsPage";
 
 function App() {
   const { isAuthenticated, isLoading } = useAuthorization();
@@ -22,6 +23,7 @@ function App() {
             }
           />
           <Route path="/" element={<SingleChartPage />} />
+          <Route path="/open-charts" element={<OpenChartsPage />} />
           <Route
             path="/multi-charts"
             element={
