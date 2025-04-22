@@ -16,26 +16,26 @@ export const OpenChartsPage = () => {
 
   // Create chart configs for each timeframe
   // Assuming intervals are ordered from largest to smallest timeframe
-  const largeTimeframe = createChartConfig(intervals[0] || 'D');
+  const shortTimeframe = createChartConfig(intervals[0] || '60');
   const middleTimeframe = createChartConfig(intervals[1] || '240');
-  const shortTimeframe = createChartConfig(intervals[2] || '60');
+  const largeTimeframe = createChartConfig(intervals[2] || 'D');
 
   return (
     <main className="w-100 h-[96vh] p-2">
       <div className="grid grid-cols-2 gap-2 h-full">
-        {/* Large timeframe chart - first row, spans both columns */}
-        <div className="flex flex-col rounded-lg overflow-hidden border border-gray-700">
-          <TradingChart config={largeTimeframe} />
-        </div>
-
         {/* Short timeframe chart - second row, first column */}
-        <div className="row-span-2 flex flex-col rounded-lg overflow-hidden border border-gray-700">
+        <div className="flex flex-col rounded-lg overflow-hidden border border-gray-700">
           <TradingChart config={shortTimeframe} />
         </div>
 
         {/* Middle timeframe chart - second row, second column */}
-        <div className="flex flex-col rounded-lg overflow-hidden border border-gray-700">
+        <div className="row-span-2 flex flex-col rounded-lg overflow-hidden border border-gray-700">
           <TradingChart config={middleTimeframe} />
+        </div>
+
+        {/* Large timeframe chart - first row, spans both columns */}
+        <div className="flex flex-col rounded-lg overflow-hidden border border-gray-700">
+          <TradingChart config={largeTimeframe} />
         </div>
       </div>
     </main>
